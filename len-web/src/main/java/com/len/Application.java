@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import tk.mybatis.spring.annotation.MapperScan;
@@ -17,10 +16,10 @@ import tk.mybatis.spring.annotation.MapperScan;
  */
 
 @EnableWebMvc
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.len"})
 @EnableTransactionManagement
-@ComponentScan({"com.len", "org.activiti"})
-@MapperScan(basePackages = {"com.len.mapper"})
+//@ComponentScan({"com.len"})
+@MapperScan(basePackages = {"com.len.pdms.service.provider.mapper","com.len.mapper"})
 @EnableDiscoveryClient
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class

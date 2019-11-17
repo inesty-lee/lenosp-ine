@@ -23,9 +23,10 @@
     <module>len-core</module>
     <module>len-sys</module>
     <module>len-web</module>
-    <module>len-activiti</module>
-    <module>len-blog</module>
-    <module>len-admin</module>
+    <module>len-pdms-model</module>
+    <module>len-pdms-service-api</module>
+    <module>len-pdms-service-provider</module>
+    <module>len-pdms-web</module>
   </modules>
 
   <dependencies>

@@ -48,14 +48,10 @@
       <groupId>com.len</groupId>
       <artifactId>len-sys</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.len</groupId>
-      <artifactId>len-activiti</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>com.len</groupId>
-      <artifactId>len-blog</artifactId>
+      <artifactId>len-pdms-web</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>

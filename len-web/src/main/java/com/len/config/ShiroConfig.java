@@ -1,7 +1,5 @@
 package com.len.config;
 
-import com.len.core.BlogRealm;
-import com.len.core.MyBasicHttpAuthenticationFilter;
 import com.len.core.filter.PermissionFilter;
 import com.len.core.filter.VerfityCodeFilter;
 import com.len.core.shiro.LoginRealm;
@@ -59,10 +57,7 @@ public class ShiroConfig {
         return realm;
     }
 
-    @Bean(name = "blogLoginRealm")
-    public BlogRealm blogLoginRealm() {
-        return new BlogRealm();
-    }
+
 
     @Bean
     public EhCacheManager getCacheManager() {
@@ -89,15 +84,14 @@ public class ShiroConfig {
     }
 
     @Bean(name = "securityManager")
-    public SecurityManager getSecurityManager(@Qualifier("userLoginRealm") LoginRealm loginRealm,
-                                              @Qualifier("blogLoginRealm") BlogRealm blogLoginRealm) {
+    public SecurityManager getSecurityManager(@Qualifier("userLoginRealm") LoginRealm loginRealm) {
         DefaultWebSecurityManager dwm = new DefaultWebSecurityManager();
         List<Realm> loginRealms = new ArrayList<>();
         dwm.setAuthenticator(getMyModularRealmAuthenticator());
         loginRealm.setName("UserLogin");
-        blogLoginRealm.setName("BlogLogin");
+//        blogLoginRealm.setName("BlogLogin");
         loginRealms.add(loginRealm);
-        loginRealms.add(blogLoginRealm);
+//        loginRealms.add(blogLoginRealm);
         dwm.setRealms(loginRealms);
         dwm.setCacheManager(getCacheManager());
         dwm.setSessionManager(defaultWebSessionManager());
@@ -109,10 +103,10 @@ public class ShiroConfig {
         return new PermissionFilter();
     }
 
-    @Bean
-    public MyBasicHttpAuthenticationFilter getAuthenticationFilter() {
-        return new MyBasicHttpAuthenticationFilter();
-    }
+//    @Bean
+//    public MyBasicHttpAuthenticationFilter getAuthenticationFilter() {
+//        return new MyBasicHttpAuthenticationFilter();
+//    }
 
     @Bean
     public VerfityCodeFilter getVerfityCodeFilter() {
@@ -132,11 +126,11 @@ public class ShiroConfig {
         Map<String, Filter> filters = new HashMap<>();
         filters.put("per", getPermissionFilter());
         filters.put("verCode", getVerfityCodeFilter());
-        filters.put("jwt", getAuthenticationFilter());
+//        filters.put("jwt", getAuthenticationFilter());
         sfb.setFilters(filters);
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/login", "verCode,anon");
-        filterMap.put("/blogLogin", "verCode,anon");
+//        filterMap.put("/blogLogin", "verCode,anon");
         filterMap.put("/getCode", "anon");
         filterMap.put("/actuator/**", "anon");
         filterMap.put("/eureka/**", "anon");
@@ -144,8 +138,9 @@ public class ShiroConfig {
         filterMap.put("/logout", "logout");
         filterMap.put("/plugin/**", "anon");
         filterMap.put("/user/**", "per");
-        filterMap.put("/blog-admin/**", "jwt");
-        filterMap.put("/blog/**", "anon");
+//        filterMap.put("/blog-admin/**", "jwt");
+//        filterMap.put("/blog/**", "anon");
+        filterMap.put("/pdms/tenant", "anon");
         filterMap.put("/**", "authc");
         sfb.setFilterChainDefinitionMap(filterMap);
         return sfb;
